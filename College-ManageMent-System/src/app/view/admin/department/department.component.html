@@ -105,7 +105,8 @@
 
       <!-- Submit -->
       <div class="form-group full" style="align-items: flex-end">
-        <input class="btn-submit" type="submit" value="Add" />
+        <button class="btn-submit" type="submit">{{ editingId ? 'Update' : 'Add' }}</button>
+        <button class="btn-cancel" type="button" *ngIf="editingId" (click)="editingId = null; departmentForm.reset()">Cancel</button>
       </div>
 
     </div>
@@ -136,7 +137,11 @@
         <td>{{dept.code}}</td>
         <td>{{dept.hodName}}</td>
         <td>{{dept.email}}</td>
-        <!-- <td>{{dept.}}</td> -->
+        <!-- <td>{{dept.extensionNo}}</td> -->
+        <td>
+          <button type="button" class="btn-edit" (click)="editDepartment(dept)">Edit</button>
+          <button type="button" class="btn-delete" (click)="deleteDepartment(dept.id)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>

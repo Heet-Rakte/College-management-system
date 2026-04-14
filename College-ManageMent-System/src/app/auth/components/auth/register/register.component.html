@@ -1,0 +1,73 @@
+<section class="login-container">
+  <div class="login-box">
+    <h2>Sign Up</h2>
+    <p style="text-align: center; color: #666; font-size: 14px; margin-bottom: 20px;"><i class="fas fa-user"></i> Create Your Account</p>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+      <div style="display: flex; flex-direction: column; gap: 15px;">
+        <div>
+          <input style="width: 100%;" type="email" placeholder="Email Address" formControlName="username" />
+          @if (registerForm.get('username')?.touched && registerForm.get('username')?.invalid) {
+            <div style="color: red; font-size: 12px; margin-top: 5px;">
+              @if (registerForm.get('username')?.hasError('required')) {
+                <div>Email is required</div>
+              }
+              @if (registerForm.get('username')?.hasError('email')) {
+                <div>Please enter a valid email</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div>
+          <input style="width: 100%;" type="password" placeholder="Password" formControlName="password" />
+          @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+            <div style="color: red; font-size: 12px; margin-top: 5px;">
+              @if (registerForm.get('password')?.hasError('required')) {
+                <div>Password is required</div>
+              }
+              @if (registerForm.get('password')?.hasError('minlength')) {
+                <div>Password must be at least 6 characters</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div>
+          <input style="width: 100%;" type="password" placeholder="Confirm Password" name="confirmPassword" formControlName="confirmPassword" />
+          @if (registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid) {
+            <div style="color: red; font-size: 12px; margin-top: 5px;">
+              @if (registerForm.get('confirmPassword')?.hasError('required')) {
+                <div>Confirm Password is required</div>
+              }
+              @if (registerForm.get('confirmPassword')?.hasError('passwordMismatch')) {
+                <div>Passwords do not match</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div>
+          <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none;" formControlName="role">
+            <option value="ADMIN">Admin</option>
+            <option value="STUDENT">Student</option>
+            <option value="FACULTY">Faculty</option>
+          </select>
+          @if (registerForm.get('role')?.touched && registerForm.get('role')?.invalid) {
+            <div style="color: red; font-size: 12px; margin-top: 5px;">
+              @if (registerForm.get('role')?.hasError('required')) {
+                <div>Role is required</div>
+              }
+            </div>
+          }
+        </div>
+
+        <button type="submit" style="width: 100%;">Register</button>
+      </div>
+    </form>
+    
+    <p style="text-align: center; font-size: 14px; margin-top: 15px;">
+      Already have an account? <a routerLink="/auth/login" style="color: #3f51b5; text-decoration: none;">Sign In</a>
+    </p>
+  </div>
+</section>
