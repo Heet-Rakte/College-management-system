@@ -20,13 +20,9 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          console.log("RAW:", response);
-
           const parsed = JSON.parse(response);
-
-          console.log("PARSED:", parsed);
-
           localStorage.setItem('token', parsed.token);
+          console.log("Success");
         },
         error: (error) => {
           console.log("Error", error);
