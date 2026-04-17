@@ -31,6 +31,8 @@ export class StudentComponent implements OnInit {
 
   isEditMode = false;
   selectedId: number | null = null;
+  showFormModal = false;
+  searchQuery = '';
 
   constructor(private studentService: StudentService) {}
 
@@ -98,7 +100,8 @@ export class StudentComponent implements OnInit {
     this.studentService.updateStudent(this.selectedId, this.formData).subscribe({
       next: () => {
         alert("Student updated successfully");
-        this.resetForm();
+        //this.resetForm();
+        this.closeFormModal();
         this.loadStudents();
       },
       error: (err) => alert(err.error?.message || "Update failed")
@@ -107,7 +110,8 @@ export class StudentComponent implements OnInit {
     this.studentService.addStudent(this.formData).subscribe({
       next: () => {
         alert("Student created successfully");
-        this.resetForm();
+        //this.resetForm();
+        this.closeFormModal();
         this.loadStudents();
       },
       error: (err) => alert(err.error?.message || "Create failed")
@@ -152,6 +156,20 @@ export class StudentComponent implements OnInit {
     });
   }
 }
+openFormModal() {
+    this.resetForm();
+    this.showFormModal = true;
+  }
+
+  closeFormModal() {
+    this.showFormModal = false;
+    this.resetForm();
+  }
+
+  openEditFormModal(student: StudentRes) {
+    this.editStudent(student);
+    this.showFormModal = true;
+  }
 
   // ✅ RESET
   resetForm() {
