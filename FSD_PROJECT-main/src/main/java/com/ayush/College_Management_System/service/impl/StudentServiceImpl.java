@@ -256,4 +256,15 @@ public class StudentServiceImpl implements StudentService {
 
         return dto;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<StudentResponseDTO> searchStudents(String keyword) {
+        log.info("Searching students with keyword: {}", keyword);
+
+        return studentRepo.searchStudents(keyword)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
 }
